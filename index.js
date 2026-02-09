@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 3000;
 const weatherLimiter = require("./middlewares/rateLimiter");
 const errorHandler = require('./utils/errorHandler');
 const redisUtils = require("./config/redisUtils");
+const setupSwagger = require("./config/swagger");
 
 const weatherRouter = require("./routes/weather.route");
 const cacheRouter = require("./routes/cache.route");
@@ -14,6 +15,7 @@ app.use(errorHandler);
 app.use(`/weather`, weatherRouter);
 app.use(`/cache`, cacheRouter);
 app.use(`/system`, systemRouter);
+setupSwagger(app);
 
 let redisClient;
 
