@@ -2,15 +2,15 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
-const listEndpoints = require("express-list-endpoints");
 const weatherLimiter = require("./middlewares/rateLimiter");
-
+const errorHandler = require('./utils/errorHandler');
 const redisUtils = require("./config/redisUtils");
 
 const weatherRouter = require("./routes/weather.route");
 const cacheRouter = require("./routes/cache.route");
 const systemRouter = require("./routes/system.route");
 app.use(weatherLimiter.limiter);
+app.use(errorHandler);
 app.use(`/weather`, weatherRouter);
 app.use(`/cache`, cacheRouter);
 app.use(`/system`, systemRouter);
