@@ -11,6 +11,8 @@ The project demonstrates:
 * Handling environment variables securely for API keys and database connections.
 * Using **rate limiting** to prevent abuse.
 * Graceful server shutdown and clean architecture with controllers, routes, and middleware.
+* API documentation with **Swagger**.
+* Automated testing with **Jest**.
 
 ---
 
@@ -21,6 +23,8 @@ The project demonstrates:
 * `GET /cache` and `DELETE /cache`: Inspect and manage cached data.
 * `GET /system/health`: Health check endpoint for server monitoring.
 * `GET /system/limits`: Check your rate limit status.
+* **Swagger API docs** available at `/api-docs`.
+* **Automated tests** using Jest and Supertest.
 * Graceful shutdown with Redis cleanup.
 * Environment-variable configuration for API keys and server settings.
 
@@ -70,11 +74,13 @@ npm run dev
 npm start
 ```
 
-### Test (placeholder):
+### Tests:
 
 ```bash
 npm test
 ```
+
+This will run the **Jest test suite**, covering **Weather, Cache, and System controllers**.
 
 ---
 
@@ -112,6 +118,24 @@ npm test
 | ------ | ---------------- | ---------------------- |
 | GET    | `/system/health` | Check server health    |
 | GET    | `/system/limits` | Check rate limit usage |
+| GET    | `/system`        | Get basic API info     |
+
+---
+
+## 📚 Swagger Documentation
+
+Swagger UI is integrated for all routes.
+**Access it at:**
+
+```
+http://localhost:3000/api-docs
+```
+
+All endpoints include:
+
+* **Tags**: `Weather`, `Cache`, `System`
+* **Parameters**: Path and query parameters defined
+* **Responses**: Example response bodies for 200 status
 
 ---
 
@@ -123,6 +147,8 @@ npm test
 * **Redis**: In-memory caching
 * **dotenv**: Environment variables
 * **express-rate-limit**: Rate limiting
+* **Swagger (swagger-jsdoc & swagger-ui-express)**: API documentation
+* **Jest + Supertest**: Automated testing
 
 ---
 
@@ -145,14 +171,18 @@ npm test
 ├─ middlewares/
 │   └─ rateLimiter.js
 ├─ config/
-│   └─ redisUtils.js
+│   ├  redisUtils.js
+│   └─ swagger.js
+├─ tests/
+│   ├─ weather.controller.test.js
+│   ├─ cache.controller.test.js
+│   └─ system.controller.test.js
 ├─ server.js
 └─ .env
 ```
 
-* **Controllers**: Handle business logic and API responses
-* **Routes**: Define endpoints
+* **Controllers**: Business logic and API responses
+* **Routes**: API endpoints
 * **Middlewares**: Rate limiting, error handling
-* **Redis Utils**: Handles Redis connection and operations
-
-Solution for Weather API Project https://roadmap.sh/projects/weather-api-wrapper-service
+* **Redis Utils**: Redis connection and caching functions
+* **Tests**: Jest test suites for all controllers
